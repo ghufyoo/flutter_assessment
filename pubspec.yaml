@@ -1,0 +1,40 @@
+name: flutter_starter_template
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  flutter: 
+    sdk: flutter
+  dio: ^5.2.1+1
+  google_fonts: ^4.0.4
+  carousel_slider: ^4.2.1
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  assets: 
+    - assets/
+    - assets/icon/
+    - assets/images/
+    - assets/lottie/
+    - assets/json/
+    - assets/svg/
+    - assets/video/
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Black.ttf
+        - asset: assets/fonts/Nunito-BlackItalic.ttf
+          style: italic
+        - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 900
+  uses-material-design: true
+
