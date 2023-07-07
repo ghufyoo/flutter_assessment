@@ -22,7 +22,8 @@ class AuthView extends GetView<AuthController> {
           focusScopeHelper(context);
         },
         child: SingleChildScrollView(
-          child:Obx(()=> Column(
+            child: Obx(
+          () => Column(
             children: [
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +54,7 @@ class AuthView extends GetView<AuthController> {
               SizedBox(
                 width: Get.width * 0.9,
                 child: Text(
-                  'Please enter your registration email and password.',
+                  'Please enter a valid format of email and password(more than 6 characters).',
                   textAlign: TextAlign.center,
                   style:
                       GoogleFonts.openSans(color: Colors.black, fontSize: 15),
@@ -206,7 +207,7 @@ class AuthView extends GetView<AuthController> {
               )
             ],
           ),
-          )  ),
+        )),
       ),
     );
   }
