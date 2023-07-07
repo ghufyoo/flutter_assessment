@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_starter_template/core/helper/helper.dart';
 import 'package:flutter_starter_template/core/responsive_layout/responsive_widget.dart';
 import 'package:flutter_starter_template/core/screens/image.view.dart';
@@ -21,9 +22,9 @@ class HomeView extends GetView<HomeController> {
                 title: const Text('Home'),
                 centerTitle: true,
                 actions: [
-                  IconButton(
+                  TextButton(
                       onPressed: () => controller.logout(),
-                      icon: const Icon(Icons.logout_rounded))
+                      child: const Text("Logout"))
                 ],
               ),
               body: Obx(() => SingleChildScrollView(
@@ -206,24 +207,44 @@ class HomeView extends GetView<HomeController> {
                         const Divider(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: controller.factorialTextEditor,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (_) async {
-                                    controller.factorialnumber.value =
-                                        controller.factorial(
-                                            int.tryParse(_.toString()) ?? 0);
-                                  },
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter the number"),
-                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      controller:
+                                          controller.factorialTextEditor,
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                      decoration: const InputDecoration(
+                                          hintText: "Enter any number"),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                          "factorial of ${controller.factorialTextEditor.text.isEmpty ? 0 : controller.factorialTextEditor.text} is ${controller.factorialnumber.value}")),
+                                ],
                               ),
-                              Expanded(
-                                  child: Text(
-                                      "factorial of ${controller.factorialTextEditor.text.isEmpty ? 0 : controller.factorialTextEditor.text} is ${controller.factorialnumber.value}")),
+                              TextButton(
+                                child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: const Center(
+                                        child: Text("Calculate Factorial"))),
+                                onPressed: () {
+                                  controller.factorialnumber.value = controller
+                                      .factorial(int.tryParse(controller
+                                              .factorialTextEditor.text
+                                              .toString()) ??
+                                          0);
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -347,8 +368,7 @@ integers.
                                   child: Text(
                                       "Second Largest : ${controller.secondLargest.value}"),
                                 )),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Wrap(
                               children: [
                                 TextButton(
                                   child: Container(
@@ -497,25 +517,37 @@ integers.
                         const Divider(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
+                          child: Column(
                             children: [
-                              Expanded(
-                                child: TextField(
-                                  controller: controller.fibonaciTextEditor,
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (_) async {
-                                    controller.fibNum.value = controller
-                                        .fibonacci(int.tryParse(controller
-                                                .fibonaciTextEditor.text) ??
-                                            0);
-                                  },
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter any text"),
-                                ),
+                              TextField(
+                                controller: controller.fibonaciTextEditor,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    hintText: "Enter any number"),
                               ),
-                              Expanded(
-                                  child: Text(
-                                      "Fibonacci Number = ${controller.fibNum.value}")),
+                              const Text("Fibonacci sequnces : "),
+                              Wrap(
+                                children: [
+                                  ...controller.listOfFibonacciSequence
+                                      .map((element) => Text("$element, "))
+                                ],
+                              ),
+                              TextButton(
+                                  child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: Colors.yellow,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: const Center(
+                                          child: Text("Calculate Fibonacci"))),
+                                  onPressed: () => controller.fibonacciSequence(
+                                      int.tryParse(controller
+                                              .fibonaciTextEditor.text) ??
+                                          0)),
                             ],
                           ),
                         ),

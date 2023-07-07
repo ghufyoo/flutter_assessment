@@ -26,12 +26,13 @@ class HomeController extends GetxController {
   final count = 0.obs;
   final min = 0.obs;
   final max = 0.obs;
-  final fibNum = 0.obs;
+
   final secondLargest = 0.obs;
   final factorialnumber = 0.obs;
   final isTextPalindrome = false.obs;
   final isTextAnagram = false.obs;
   final listOfRandomNumbers = <int>[].obs;
+  final listOfFibonacciSequence = <int>[].obs;
 
   @override
   void onInit() {
@@ -130,11 +131,25 @@ class HomeController extends GetxController {
     isTextAnagram.value = isAnagram;
   }
 
-  int fibonacci(int n) {
-    if (n <= 1) {
-      return n;
+  fibonacciSequence(int n) {
+    listOfFibonacciSequence.clear();
+    if (n == 1) {
+      listOfFibonacciSequence.addAll([0]);
+      return;
     }
-    return fibonacci(n - 1) + fibonacci(n - 2);
+    if (n <= 0) {
+      return;
+    }
+    List<int> na = [0, 1];
+    while (n > na.length) {
+      int last = na.last;
+
+      int secondLast = na[na.length - 2];
+
+      na.add(last + secondLast);
+    }
+
+    listOfFibonacciSequence.addAll(na);
   }
 
   logout() async {
